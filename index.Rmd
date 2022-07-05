@@ -1,0 +1,55 @@
+---
+title: "Tablero Cantones"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+
+```{r paquetes}
+library(dplyr)
+library(sf)
+library(leaflet)
+
+```
+
+
+```{r lecturs-datos}
+cantones <-
+  st_read(dsn = "c:/users/C05349/cantones_simplificados.geojson.txt") %>%
+  st_transform(4326)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r mapa}
+leaflet() %>%
+ addTiles(group = "OpenStreetMap") %>%
+  addPolygons(data = cantones, weight = 1.0, group = "Cantones") %>%
+  addLayersControl(baseGroups = c("OpenStreetMap"),
+  overlayGroups = c("Cantones"))
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
