@@ -1,0 +1,46 @@
+---
+title: "Untitled"
+author: "Sofía Moya"
+date: '2022-06-09'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preparativos
+```{r}
+library(dplyr)
+library(ggplot2)
+library(pltly)
+library(sf)
+library(DT)
+```
+
+```{r lectura-datos, message=FALSE}
+felinos <-
+  st_read(
+    "datos/gbif/felinos.csv",
+    options = c(
+      "X_POSSIBLE_NAMES=decimalLongitude", # columna de longitud decimal
+      "Y_POSSIBLE_NAMES=decimalLatitude"   # columna de latitud decimal
+    ),
+    quiet = TRUE
+  )
+
+```
+
+# Tabla
+
+```{r tabla}
+felinos %>%
+  datatable(options = list(
+    pageLength = 5,
+    language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+  ))
+
+```
+
+
+#Gráfico
